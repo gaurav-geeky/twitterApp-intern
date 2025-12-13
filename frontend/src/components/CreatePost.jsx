@@ -22,12 +22,12 @@ const CreatePost = () => {
                         <div>
                             <Avatar src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4855.jpg" size="40" round={true} />
                         </div>
-                        <input type="text" className='w-full outline-none border-none text-l ml-2' placeholder='What is happening?' />
+                        <input type="text" className='w-full outline-none border-none text-xl ml-2' placeholder='What is happening?' />
                     </div>
 
                     <div className='flex items-center justify-between p-4 border-b border-gray-300'>
                         <div>
-                            <CiImageOn />
+                            <CiImageOn size={24} />
                         </div>
                         <button className='bg-[#1D9BF0] px-4 py-1 text-lg text-white text-right border-none rounded-full'>Post</button>
                     </div>

@@ -1,19 +1,31 @@
+import { Routes, Route } from "react-router-dom";
+import Layout from "./Layout";
 
+import Feed from "./components/Feed";
+import Explore from "./components/Explore";
+import Search from "./components/Search";
+import Login from "./components/Login";
+import Profile from "./components/Profile";
 
-import Home from './components/Home';
 
 function App() {
-
   return (
-    <>
-      <div>
+    <Routes>
 
-        <Home/> 
+      {/* PUBLIC ROUTES (NO SIDEBAR) */}
+      <Route path="/login" element={<Login />} />
 
-      </div>
-    </>
-  )
+      {/* APP ROUTES (WITH SIDEBAR) */}
+      <Route path="/" element={<Layout />}>
+        <Route index element={<Feed />} />
+        <Route path="home" element={<Feed />} />
+        <Route path="explore" element={<Explore />} />
+        <Route path="search" element={<Search />} />
+        <Route path="profile" element={<Profile />} />
+      </Route>
+
+    </Routes>
+  );
 }
 
 export default App;
-
