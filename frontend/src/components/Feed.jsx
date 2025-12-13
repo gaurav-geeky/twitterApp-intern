@@ -1,14 +1,18 @@
 import React from 'react'
+import CreatePost from './CreatePost';
+import Tweet from './Tweet';
+
 
 const Feed = () => {
-    return (
-        <div>
+  return (
+    <div  className=" w-[50%] border border-gray-200">
 
-            i am feed
+      <CreatePost/> 
+      <Tweet/>
 
-        </div>
-    )
+    </div>
+  )
 }
 
-export default Feed;
+export default Feed; 
 
