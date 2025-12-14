@@ -17,7 +17,7 @@ const CreatePost = () => {
 
                 </div>
 
-                <div className=''>
+                <div>
                     <div className='flex items-center p-4'>
                         <div>
                             <Avatar src="https://img.freepik.com/premium-vector/man-avatar-profile-picture-isolated-background-avatar-profile-picture-man_1293239-4855.jpg" size="40" round={true} />
@@ -36,7 +36,7 @@ const CreatePost = () => {
 
 
                 <div>
-                    
+
                 </div>
             </div>
 

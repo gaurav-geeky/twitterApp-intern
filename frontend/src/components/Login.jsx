@@ -3,10 +3,27 @@ import React from 'react'
 const Login = () => {
     return (
         <>
-            <div>
-                i am lgoin
-                lgoin lgoin
-                search Lorem ipsum dolor sit, amet consectetur adipisicing elit. Optio eos impedit nulla excepturi nobis porro minima sed ea nesciunt animi? Sint dolore veniam in totam iste cupiditate placeat error non earum dolor reprehenderit possimus omnis ullam perferendis, voluptates at beatae soluta perspiciatis recusandae nesciunt!
+            <div className='w-screen h-screen flex items-center justify-center'>
+
+                <div className='flex items-center justify-around w-[80%] '>
+                    <div>
+                        <img className='ml-5' width={"280px"} src="https://images.seeklogo.com/logo-png/49/2/twitter-x-logo-png_seeklogo-492397.png" alt="twitterlogo" />
+                    </div>
+
+                    <div>
+                        <div>
+                            <h1 className='text-[64px] font-bold '>Happening now</h1>
+                        </div>
+                        <h1 className='my-2 text-xl font-bold'>Login</h1>
+                        <form className='flex flex-col w-[50%]'>
+                            <input type="text" placeholder='Name' className='outline-blue-500 border border-gray-800 px-3 py-1 rounded-full my-1 font-semibold' />
+                            <input type="text" placeholder='Username' className='outline-blue-500 border border-gray-800 px-3 py-1 rounded-full my-1 font-semibold' />
+                            <input type="text" placeholder='Email' className='outline-blue-500 border border-gray-800 px-3 py-1 rounded-full my-1 font-semibold' />
+                            <input type="text" placeholder='Password' className='outline-blue-500 border border-gray-800 px-3 py-1 rounded-full my-1 font-semibold' />
+                        </form>
+                    </div>
+
+                </div>
             </div>
         </>
     )
