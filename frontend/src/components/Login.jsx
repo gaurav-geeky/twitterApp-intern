@@ -11,14 +11,24 @@ const Login = () => {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
 
-
     const loginSignupHandler = () => {
         setIslogin(!islogin);
     }
 
     const submitHandler = (e) => {
-        e.preventDefault(); 
-        console.log(name, username, email, password); 
+        e.preventDefault();
+        if (islogin) {
+            // login
+        }
+        else {
+            // sign up 
+            try {
+                
+            }
+            catch (error) {
+                console.log(error);
+            }
+        }
     }
 
 
