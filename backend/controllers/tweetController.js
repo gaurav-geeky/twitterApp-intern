@@ -1,5 +1,6 @@
 
-const TweetModel = require('../models/TweetModel')
+const TweetModel = require('../models/TweetModel');
+const UserModel = require('../models/UserModel');
 
 const createTweet = async (req, res) => {
     try {
@@ -65,11 +66,33 @@ const likeOrDislike = async (req, res) => {
     }
 }
 
+const GetAllTweets = async (req, res) => {
+    // loggedin user tweet + following user tweet. 
+
+    try {
+        const id = req.params.id;
+        const loggedInUser = await UserModel.findById(id);
+        const loggedInUserTweets = await TweetModel.find({ _id: id });
+
+        const followingusertweets = await Promise.all(loggedInUser.following.map((otherUserId) => {
+            return TweetModel.find({ userId: otherUserId }); 
+        })); 
+        return res.status(200).json({
+            tweets: loggedInUserTweets.concat(...followingusertweets)
+        })
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
 
 
 module.exports = {
     createTweet,
     deleteTweet,
     likeOrDislike,
+    GetAllTweets,
+
 
 }
