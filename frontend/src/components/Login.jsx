@@ -16,48 +16,11 @@ const Login = () => {
         setIslogin(!islogin);
     }
 
-    const submitHandler = async (e) => {
-        e.preventDefault();
-        if (islogin) {
-            // login
-            try {
-                let api = `${import.meta.env.VITE_BACK}/login`;
-                const response = await axios.post(api, { email, password }, {
-                    headers: {
-                        'Content-Type': "application/json"
-                    },
-                    withCredentials: true
-                });
-                dispatch(getUser(response?.data?.user));
-                if (response.data.success) {
-                    navigate("/");
-                    alert(response.data.msg);
-                }
-            } catch (error) {
-                alert(error.response.data.msg);
-                console.log(error);
-            }
-        } else {
-            // signup
-            try {
-
-                let api = `${import.meta.env.VITE_BACK}/register`;
-                const response = await axios.post(api, { name, username, email, password }, {
-                    headers: {
-                        'Content-Type': "application/json"
-                    },
-                    withCredentials: true
-                });
-                if (response.data.success) {
-                    setIslogin(true);
-                    alert(response.data.msg);
-                }
-            } catch (error) {
-                alert(error.response.data.msg);
-                console.log(error);
-            }
-        }
+    const submitHandler = (e) => {
+        e.preventDefault(); 
+        console.log(name, username, email, password); 
     }
+
 
     return (
         <>
@@ -73,6 +36,7 @@ const Login = () => {
                             <h1 className='text-[64px] font-bold '>Happening now</h1>
                         </div>
                         <h1 className='my-2 text-xl font-bold'>{islogin ? "Login" : "Signup"}</h1>
+
                         <form onSubmit={submitHandler} className='flex flex-col w-[55%] '>
 
                             <div className='flex flex-col h-[170px] '>
@@ -88,10 +52,13 @@ const Login = () => {
 
                                 <input type="email" placeholder='Email' value={email} onChange={(e) => setemail(e.target.value)} className='outline-blue-500 border border-gray-800 px-3 py-1 rounded-full my-1 font-semibold' />
 
-                                <input value={password} onChange={(e) => setpassword(e.target.value)} type="text" placeholder='Password' className='outline-blue-500 border border-gray-800 px-3 py-1 rounded-full my-1 font-semibold' />
+                                <input value={password} onChange={(e) => setpassword(e.target.value)} type="password" placeholder='Password' className='outline-blue-500 border border-gray-800 px-3 py-1 rounded-full my-1 font-semibold' />
                             </div>
 
-                            <button className='bg-[#1D9BF0] border-none py-1 my-4 rounded-full text-lg text-white'>{islogin ? "Login" : "Create account"}</button>
+                            <button className='bg-[#1D9BF0] border-none py-1 my-4 rounded-full text-lg text-white'>
+                                {islogin ? "Login" : "Create account"}
+                            </button>
+
                             <h1>
                                 {islogin ? "Do not have an account?" : "Already have an account?"}
                                 <span onClick={loginSignupHandler} className='font-bold text-blue-400'> {islogin ? "Signup" : "Login"}</span>

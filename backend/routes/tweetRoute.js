@@ -8,5 +8,6 @@ route.post('/createtweet', Auth, tweetController.createTweet);
 route.delete('/deletetweet/:id', Auth, tweetController.deleteTweet);
 route.put('/liketweet/:id', Auth, tweetController.likeOrDislike);
 route.get('/getalltweets/:id', Auth, tweetController.GetAllTweets); 
+route.get('/followingtweets/:id', Auth, tweetController.GetFollowingTweets); 
 
 module.exports = route; 

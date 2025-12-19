@@ -72,7 +72,7 @@ const GetAllTweets = async (req, res) => {
     try {
         const id = req.params.id;
         const loggedInUser = await UserModel.findById(id);
-        const loggedInUserTweets = await TweetModel.find({ _id: id });
+        const loggedInUserTweets = await TweetModel.find({ userId: id });
 
         const followingusertweets = await Promise.all(loggedInUser.following.map((otherUserId) => {
             return TweetModel.find({ userId: otherUserId }); 
@@ -86,6 +86,27 @@ const GetAllTweets = async (req, res) => {
     }
 }
 
+const GetFollowingTweets = async (req, res) => {
+
+    try {
+        const id = req.params.id;
+        const loggedInUser = await UserModel.findById(id);
+
+        const followingusertweets = await Promise.all(loggedInUser.following.map((otherUserId) => {
+            return TweetModel.find({ userId: otherUserId }); 
+        })); 
+        return res.status(200).json({
+            tweets: [].concat(...followingusertweets)
+        })
+    }
+    catch (error) {
+        console.log(error)
+    }
+}
+
+
+
+
 
 
 module.exports = {
@@ -93,6 +114,7 @@ module.exports = {
     deleteTweet,
     likeOrDislike,
     GetAllTweets,
+    GetFollowingTweets,
 
 
 }
