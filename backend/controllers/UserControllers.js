@@ -4,11 +4,9 @@ const bcrypt = require("bcryptjs");
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
-const userRegister = async (req,
-    res) => {
 
+const userRegister = async (req, res) => {
     try {
-        console.log(req.body);
         const { name, username, email, password } = req.body;
 
         // basic validation
@@ -16,17 +14,15 @@ const userRegister = async (req,
             return res.status(401).json({
                 msg: "All fields are required.",
                 success: false
-            })
+            });
         }
-
-        const user = await userModel.findOne(email);
-        if (!user) {
+        const user = await userModel.findOne({ email });
+        if (user) {
             return res.status(401).json({
                 msg: "User already exist.",
                 success: false,
             })
         }
-
         // salt value decides how much the password is to be strong
         const hashedPassword = await bcrypt.hash(password, 10);
         const newUser = await UserModel.create({
@@ -34,17 +30,16 @@ const userRegister = async (req,
             username,
             email,
             password: hashedPassword
-        })
+        });
         return res.status(201).json({
-            msg: "Account created successfully.",
-            success: true
+            msg: "Account created successfully.", success: true, user: newUser
         })
-
     }
     catch (error) {
         console.log(error);
     }
 }
+
 
 const userLogin = async (req, res) => {
     try {
@@ -54,7 +49,7 @@ const userLogin = async (req, res) => {
                 msg: "Invalid Credentials.",
                 success: false
             })
-        }
+        };
 
         const user = await userModel.findOne({ email });
         if (!user) {
@@ -63,21 +58,19 @@ const userLogin = async (req, res) => {
                 success: false
             })
         }
-        const isMatch = await bcrypt.compare(user.password, password);
+        const isMatch = await bcrypt.compare(password, user.password);  // reqbody item = model item
         if (!isMatch) {
             return res.status(401).json({
                 msg: "Incorred email or bcrypt_password",
                 success: false,
-            })
+            }); 
         }
-
         const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
 
         return res.status(201).cookie("token", token, { expiresIn: "1d", httpOnly: true }).json({
             msg: `Welcome back ${user.name}`,
             success: true
         })
-
     }
     catch (error) {
         console.log(error);
@@ -158,7 +151,7 @@ const Follow = async (req, res) => {
         else {
             return res.status(400).json({ msg: `User already followed to ${user.name}` });
         }
-        
+
         return res.status(200).json({ msg: `${loggedInUser.name} just followed ${user.name}` })
     }
     catch (error) {
@@ -200,6 +193,6 @@ module.exports = {
     userProfile,
     otherUser,
     Follow,
-    Unfollow, 
+    Unfollow,
 
 }

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+import { toast } from "react-toastify";
 
 
 const Login = () => {
@@ -15,15 +15,27 @@ const Login = () => {
         setIslogin(!islogin);
     }
 
-    const submitHandler = (e) => {
+    const handlesubmit = async (e) => {
         e.preventDefault();
         if (islogin) {
             // login
+            try {
+                const api = `${import.meta.env.VITE_BACK}/user/login`;
+                const response = await axios.post(api, { email, password });
+                console.log(response.data);
+                toast.success(response.data.msg);
+            }
+            catch (error) {
+                toast.error(error.response?.data?.msg);
+            }
         }
         else {
             // sign up 
             try {
-                
+                const api = `${import.meta.env.VITE_BACK}/user/register`;
+                const response = await axios.post(api, { name, username, email, password });
+                console.log(response.data);
+                toast.success(response.data.msg);
             }
             catch (error) {
                 console.log(error);
@@ -47,7 +59,7 @@ const Login = () => {
                         </div>
                         <h1 className='my-2 text-xl font-bold'>{islogin ? "Login" : "Signup"}</h1>
 
-                        <form onSubmit={submitHandler} className='flex flex-col w-[55%] '>
+                        <form className='flex flex-col w-[55%] '>
 
                             <div className='flex flex-col h-[170px] '>
                                 {
@@ -65,7 +77,9 @@ const Login = () => {
                                 <input value={password} onChange={(e) => setpassword(e.target.value)} type="password" placeholder='Password' className='outline-blue-500 border border-gray-800 px-3 py-1 rounded-full my-1 font-semibold' />
                             </div>
 
-                            <button className='bg-[#1D9BF0] border-none py-1 my-4 rounded-full text-lg text-white'>
+                            <button
+                                className='bg-[#1D9BF0] border-none py-1 my-4 rounded-full text-lg text-white'
+                                onClick={handlesubmit}>
                                 {islogin ? "Login" : "Create account"}
                             </button>
 

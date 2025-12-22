@@ -16,7 +16,11 @@ app.use(bodyparser.urlencoded({ extended: true }))
 app.use(bodyparser.json())
 
 // use of CORS middlewarre
-app.use(cors());
+const corsOptions = {
+    origin:"http://localhost:5173",
+    credentials:true
+}
+app.use(cors(corsOptions));
 
 app.use('/user', userRoute); 
 app.use('/tweet', tweetRoute); 
