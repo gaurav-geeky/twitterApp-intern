@@ -16,8 +16,8 @@ const userSchema = new mongoose.Schema({
         unique: true,
     },
     password: {
-        type: String,
-        required: true,
+        type: String, 
+        required: true, 
     },
     followers: {
         type: Array,
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
     },
     bookmarks: {
         type: Array,
-        unique: true,
+        default: [], 
     },
 }, { timestamps: true });
 

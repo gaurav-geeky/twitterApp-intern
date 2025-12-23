@@ -63,14 +63,18 @@ const userLogin = async (req, res) => {
             return res.status(401).json({
                 msg: "Incorred email or bcrypt_password",
                 success: false,
-            }); 
+            });
         }
         const token = jwt.sign({ id: user._id }, process.env.TOKEN_SECRET, { expiresIn: "1d" });
 
-        return res.status(201).cookie("token", token, { expiresIn: "1d", httpOnly: true }).json({
-            msg: `Welcome back ${user.name}`,
-            success: true
-        })
+        return res.status(201).cookie("token",
+            token,
+            { expiresIn: "1d", httpOnly: true }).json({
+                msg: `Welcome back ${user.name}`, 
+                user,
+                success: true
+            }
+            )
     }
     catch (error) {
         console.log(error);

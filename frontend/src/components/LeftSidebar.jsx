@@ -61,7 +61,6 @@ const LeftSidebar = () => {
 
                     <button className="px-4 py-2 border-none font-bold text-white text-[15px] bg-[#1D9BF0] w-full rounded-full" >Post</button>
 
-
                 </div>
 
             </div>
