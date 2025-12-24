@@ -61,7 +61,7 @@ const userLogin = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);  // reqbody item = model item
         if (!isMatch) {
             return res.status(401).json({
-                msg: "Incorred email or bcrypt_password",
+                msg: "Incorrect email or bcrypt_password",
                 success: false,
             });
         }

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-import { useDispatch  } from "react-redux";
+import { useDispatch } from "react-redux";
 import { getUser } from '../redux/userSlice';
 
 
@@ -14,10 +14,8 @@ const Login = () => {
     const [email, setemail] = useState("");
     const [password, setpassword] = useState("");
 
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
 
     const loginSignupHandler = () => {
         setIslogin(!islogin);
@@ -29,11 +27,18 @@ const Login = () => {
             // login
             try {
                 const api = `${import.meta.env.VITE_BACK}/user/login`;
-                const response = await axios.post(api, { email, password });
-                console.log(response.data);
-                navigate("/home");
-                toast.success(response.data.msg);
-                dispatch(getUser(response?.data?.user));
+
+                const response = await axios.post(api,
+                    { email, password },
+                    { withCredentials: true }
+                );
+                dispatch(getUser(response?.data?.user)); 
+                
+                if (response.data.success) {
+                    navigate("/home");
+                    toast.success(response.data.msg); 
+                    console.log(response?.data?.user);  
+                }
             }
             catch (error) {
                 toast.error(error.response.data.msg);
@@ -46,8 +51,7 @@ const Login = () => {
             try {
                 const api = `${import.meta.env.VITE_BACK}/user/register`;
                 const response = await axios.post(api, { name, username, email, password });
-                console.log(response.data);
-                if (response.data.msg) {
+                if (response.data.success) {
                     setIslogin(true);
                     toast.success(response.data.msg);
                 }

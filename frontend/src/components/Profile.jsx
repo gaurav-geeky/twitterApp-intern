@@ -2,13 +2,24 @@ import React from 'react'
 import { BiArrowBack } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import Avatar from 'react-avatar'
+import { useSelector } from "react-redux";
+import useGetProfile from "../hooks/useGetProfile";
+import { useEffect } from 'react';
+
 
 
 const Profile = () => {
 
+    const { user, profile } = useSelector(store => store.user)
+    useGetProfile(user?._id);
+    console.log("REDUX USER:", user);
+    console.log("REDUX profiel ", profile);
+
+    
 
     return (
         <div className='w-full'>
+
 
             <div>
                 <div className='flex items-center  '>
@@ -16,7 +27,7 @@ const Profile = () => {
                         <BiArrowBack size={24} />
                     </Link>
                     <div className='ml-2'>
-                        <h1 className='text-xl font-bold'>Patel</h1>
+                        <h1 className='text-xl font-bold'> {profile?.name} </h1>
                         <p className='text-[13px] text-gray-500'>10 posts</p>
                     </div>
                 </div>
@@ -29,8 +40,8 @@ const Profile = () => {
                     <button className='px-4 py-1 hover:bg-gray-200 rounded-full border-2 border-gray-300 font-bold text-xl'>Edit Profile</button>
                 </div>
                 <div className='m-4'>
-                    <h1 className='font-bold text-xl'>Patel</h1>
-                    <p>@patelmernstack</p>
+                    <h1 className='font-bold text-xl'> {profile?.name} </h1>
+                    <p> {`@${profile?.username}`} </p>
                 </div>
                 <div className='m-4 text-sm'>
                     <p>🌐 Exploring the web's endless possibilities with MERN Stack 🚀 | Problem solver by day, coder by night 🌙 | Coffee lover ☕ | Join me on this coding journey!</p>
